@@ -44,10 +44,13 @@ html {
 }
 
 .translucent-padding {
-    background: #ddd;
-    opacity: .9;
+    background-color: rgba(221,221,221,0.7);
 }
 
+#big-logo {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
 .white-bg {
     background: #fff;
     border-style: solid;
@@ -57,7 +60,7 @@ html {
 }
 
 .large-font {
-    font-size: 1000%;
+    font-size: 800%;
     font-style: italic;
     color: #fff;
 }
