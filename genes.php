@@ -1,11 +1,12 @@
 <?php 
-$db_hostname = 'localhost';
 $db_database = 'hairgel';
 $cwd = getcwd();
 if ($cwd === "C:\\xampp\htdocs\hairgel") { // localhost
+	$db_hostname = 'localhost';
 	$db_username = 'root';
 	$db_password = '';
 } else { // server
+	$db_hostname = 'rendllabinfo.mydomaincommysql.com';
 	$db_username = 'wangz10';
 	$db_password = 'systemsbiology';
 }
@@ -39,14 +40,10 @@ if (isset($_GET['gene'])) {
 		array_push($out_array['data'], array('name' => $sample, 'avg' => $avg, 'sd' => $sd));
 	}
 
-	$query = "SELECT signature FROM signature WHERE gene='$gene'";
-	$result = mysql_query($query);
-	if ($result) {
-		$signature = mysql_fetch_array($result)['signature'];
-	} else {
-		$signature = False;
-	}	
-	$out_array['signature'] = $signature;
+	$query2 = "SELECT signature FROM signature WHERE gene='$gene'";
+	$result2 = mysql_query($query2);
+	$signature = mysql_fetch_assoc($result2);
+	$out_array['signature'] = $signature['signature'];
 	$out_array['gene'] = $row['gene'];
 
 	echo json_encode($out_array);
