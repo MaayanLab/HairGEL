@@ -30,73 +30,72 @@ rect:hover {
 }
 </style>
 <body>
-<script src="js/d3.v3.min.js"></script>
-<script>
+  <script src="js/d3.v3.min.js"></script>
+  <script>
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+  var margin = {top: 20, right: 20, bottom: 30, left: 40},
+  width = 960 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+  var x = d3.scale.ordinal()
+  .rangeRoundBands([0, width], .1);
 
-var y = d3.scale.linear()
-    .range([height, 0]);
+  var y = d3.scale.linear()
+  .range([height, 0]);
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+  var xAxis = d3.svg.axis()
+  .scale(x)
+  .orient("bottom");
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
+  var yAxis = d3.svg.axis()
+  .scale(y)
+  .orient("left")
 
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+  var svg = d3.select("body").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("data.tsv", type, function(e, data) {
-  console.log(data);
-  x.domain(data.map(function(d) { return d.letter; }));
-  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
-
-  svg.append("g")
+  function barPlot(filename) {
+    d3.tsv(filename, type, function(e, data) {
+      x.domain(data.map(function(d) { return d.letter; }));
+      y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+      // set up xAxis
+      svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
-
-  svg.append("g")
+      // set up yAxis
+      svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
-    .append("text")
+      .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("FPKM");
-
-  svg.selectAll("rect")
+      // plot bars
+      svg.selectAll("rect")
       .data(data)
-    .enter().append("rect")
+      .enter().append("rect")
       .attr("class", function(d) {return d.letter; })
       .attr("x", function(d) { return x(d.letter); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.frequency); })
       .attr("height", function(d) { return height - y(d.frequency); });
-
-  var barWidth = 0.5*x.rangeBand();
-  svg.selectAll(".errorBar")
+      // add error bars
+      var barWidth = 0.5*x.rangeBand();
+      svg.selectAll(".errorBar")
       .data(data)
-    .enter().append("path")
+      .enter().append("path")
       .attr("class", 'errorBar')
       .attr("d", function(d) { 
         var xVal = x(d.letter)+barWidth
         return "M" + xVal + "," + y(d.frequency-d.error)+ "L" + xVal + "," + y(d.frequency) +"L"+xVal+','+y(d.frequency+d.error) })
-
-});
+    });
+}
 
 function type(d) { // convert string to float
   d.frequency = +d.frequency;
@@ -104,4 +103,8 @@ function type(d) { // convert string to float
   return d;
 }
 
+
+
+
+barPlot('data.tsv');
 </script>

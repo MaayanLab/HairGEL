@@ -1,176 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Zichen Wang (zichen.wang@mssm.edu)">
-    <title>Hair-GEL, searchable Gene Expression Library for hair follicles</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/scrolling-nav.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Zichen Wang (zichen.wang@mssm.edu)">
+	<title>Hair-GEL, searchable Gene Expression Library for hair follicles</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/scrolling-nav.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/barplot.css">
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Hair-GEL</a>
-            </div>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand page-scroll" href="#page-top">Hair-GEL</a>
+			</div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a class="page-scroll" href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#genes">Query genes</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#pathways">Query pathways</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+					<li class="hidden">
+						<a class="page-scroll" href="#page-top"></a>
+					</li>
+					<li>
+						<a class="page-scroll" href="#genes">Query genes</a>
+					</li>
+					<li>
+						<a class="page-scroll" href="#pathways">Query pathways</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
 
-    <section id="intro" class="intro-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1 translucent-padding" id="top-banner">
-                    <div class="row">
-                        <div class="col-xs-2" id="colorLegend">
-                            <p><i><font color="white">E14.5 embryo</font></i></p>
-                            <p><i><font color="red">Sox2</font></i></p>
-                            <p><i><font color="green">Itgb4</font></i></p>
-                            <p><i><font color="blue">Dapi</font></i></p>
-                        </div>
-                        <div class="col-xs-8" id="cite">
-                            <h3>Please cite: <i><strong>A Transcriptome Atlas of Embryonic Hair Follicle Stem Cells and Their Niche</strong> J.2015</i> </h3>
-                        </div>
-                        <div class="col-xs-2" id="logos">
-                            <a href="#">Rendl Lab</a>
-                            <a href="http://icahn.mssm.edu/"><img src="img/MSSMLogo.png"></a>
+	<section id="intro" class="intro-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1 translucent-padding" id="top-banner">
+					<div class="row">
+						<div class="col-xs-2" id="colorLegend">
+							<p><i><font color="white">E14.5 embryo</font></i></p>
+							<p><i><font color="red">Sox2</font></i></p>
+							<p><i><font color="green">Itgb4</font></i></p>
+							<p><i><font color="blue">Dapi</font></i></p>
+						</div>
+						<div class="col-xs-8" id="cite">
+							<h3>Please cite: <i><strong>A Transcriptome Atlas of Embryonic Hair Follicle Stem Cells and Their Niche</strong> J.2015</i> </h3>
+						</div>
+						<div class="col-xs-2 text-center" id="logos">
+							<a href="http://icahn.mssm.edu/"><img src="img/MSSMLogo.png"></a>
+							<a href="http://research.mssm.edu/rendl/">Rendl Lab</a><br>
+							<a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-10 col-lg-offset-1" id="big-logo">
+					<div class="row">
+						<div class="col-xs-7 "><h1 class="large-font">Hair-GEL</h1></div>
+						<div class="col-xs-5 bottom-align-text">
+							<p class="medium-font">searchable<br>
+								<u>G</u>ene <u>E</u>xpression <u>L</u>ibrary<br>
+								for hair follicles<br>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-10 col-lg-offset-1 translucent-padding" id="links">
+					<div class="row vertical-align">
+						<div class="col-xs-2"><a class="btn btn-danger page-scroll" href="#genes"><span class="glyphicon glyphicon-arrow-down"></span> Query genes</a></div>
+						<div class="col-xs-8">
+							<h4>Downloads</h4>
+							<ul>
+								<li><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></li>
+								<li><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></li>
+								<li><a href="downloads/Signature genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> GO analysis</a></li>
+							</ul>
+						</div>
+						<div class="col-xs-2"><a class="btn btn-danger page-scroll" href="#pathways"><span class="glyphicon glyphicon-arrow-down"></span> Query pathways</a></div>
+					</div>
 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-10 col-lg-offset-1" id="big-logo">
-                    <div class="row">
-                        <div class="col-xs-7 "><h1 class="large-font">Hair-GEL</h1></div>
-                        <div class="col-xs-5 bottom-align-text">
-                            <p class="medium-font">searchable<br>
-                                <u>G</u>ene <u>E</u>xpression <u>L</u>ibrary<br>
-                                for hair follicles<br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-10 col-lg-offset-1 translucent-padding" id="links">
-                    <div class="row vertical-align">
-                        <div class="col-xs-2"><a class="btn btn-danger page-scroll" href="#genes"><span class="glyphicon glyphicon-arrow-down"></span> Query genes</a></div>
-                        <div class="col-xs-8">
-                            <h4>Downloads</h4>
-                            <ul>
-                                <li><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></li>
-                                <li><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></li>
-                                <li><a href="downloads/Signature genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> GO analysis</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-2"><a class="btn btn-danger page-scroll" href="#pathways"><span class="glyphicon glyphicon-arrow-down"></span> Query pathways</a></div>
-                    </div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Gene Section -->
+	<section id="genes" class="gene-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1 translucent-padding">
+					<div class="row">
+						<div class="col-sm-7">
+							<div class="row">
+								<div class="form-group col-xs-10 col-xs-offset-1">
+									<h1>Query genes</h1>
+									<label for="gene" class="col-xs-4 control-label">gene query:</label>
+									<div class="col-xs-8">
+										<input type="text" id="gene" class="form-control ui-autocomplete-input" placeholder="Input official symbol" />
+										<!-- <p id="gene-description"></p> -->
+									</div>
+								</div>
+							</div>
+							<div class="row text-center">
+								<span id="gene-hint"></span>
+							</div>
+							<div id="barplot-container" class="row"></div>
+							<span class="text-center">* signature genes</span>
+						</div>
+						<div class="col-sm-5">
+							<img id="legend" height="600" src="img/Cartoon.svg">
+						</div>
+						<div class="text-center"><a class="btn btn-primary page-scroll" href="#page-top"><span class="glyphicon glyphicon-arrow-up"></span></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Pathway Section -->
+	<section id="pathways" class="pathway-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1 translucent-padding">
+					<div class="row">
+						<h1>Query pathways</h1>
+						<div class="form-group col-xs-10 col-xs-offset-1">
+							<label for="select_pathway" class="col-xs-6 control-label">pathway query:</label>
+							<div class="col-xs-6">
+								<select id="select_pathway" class="form-control">
+									<option value="Wnt">Wnt</option>
+									<option value="Shh">Shh</option>
+									<option value="Notch">Notch</option>
+									<option value="Fgf">Fgf</option>
+									<option value="Tgfb">Tgfb</option>
+									<option value="Bmp">Bmp</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-10 col-xs-offset-1 text-center">
+							<div class="white-bg">
+								<img id="pathway_img" height="400" src="img/Wnt.svg">
+							</div>
+							<a class="btn btn-primary page-scroll" href="#page-top"><span class="glyphicon glyphicon-arrow-up"></span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- JavaScripts -->
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing.min.js"></script>
+	<script src="js/scrolling-nav.js"></script>
+	<script src="js/d3.v3.min.js"></script>
+	<script>
+	// for barplot
+	var margin = {top: 40, right: 10, bottom: 25, left: 50},
+	width = 500 - margin.left - margin.right,
+	height = 300 - margin.top - margin.bottom;
 
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Gene Section -->
-    <section id="genes" class="gene-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1 translucent-padding">
-                    <div class="row">
-                        <div class="col-xs-7">
-                            <div class="row">
-                                <div class="form-group col-xs-10 col-xs-offset-1">
-                                    <h1>Query genes</h1>
-                                    <label for="gene" class="col-xs-4 control-label">gene query:</label>
-                                    <div class="col-xs-8">
-                                        <input type="text" id="gene" class="form-control ui-autocomplete-input" placeholder="Input official symbol" />
-                                        <p id="gene-description"></p>
-                                        <br>
-                                        <span class="alert alert-info">Enter to search</span>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row white-bg"></div>
-                        </div>
-                        <div class="col-xs-5">
-                            <img id="legend" height="600" src="img/Cartoon.svg">
-                        </div>
-                        <div class="text-center"><a class="btn btn-primary page-scroll" href="#page-top"><span class="glyphicon glyphicon-arrow-up"></span></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Pathway Section -->
-    <section id="pathways" class="pathway-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1 translucent-padding">
-                    <div class="row">
-                        <h1>Query pathways</h1>
-                        <div class="form-group col-xs-10 col-xs-offset-1">
-                            <label for="select_pathway" class="col-xs-6 control-label">pathway query:</label>
-                            <div class="col-xs-6">
-                                <select id="select_pathway" class="form-control">
-                                    <option value="Wnt">Wnt</option>
-                                    <option value="Shh">Shh</option>
-                                    <option value="Notch">Notch</option>
-                                    <option value="Fgf">Fgf</option>
-                                    <option value="Tgfb">Tgfb</option>
-                                    <option value="Bmp">Bmp</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-10 col-xs-offset-1 text-center">
-                            <div class="white-bg">
-                                <img id="pathway_img" height="400" src="img/Wnt.svg">
-                            </div>
-                            <a class="btn btn-primary page-scroll" href="#page-top"><span class="glyphicon glyphicon-arrow-up"></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- JavaScripts -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/scrolling-nav.js"></script>
-    <script>
-    $("#select_pathway").change(function(){
-        var pathway = $(this).val();
-        var imgName = "img/"+pathway+".svg";
-        $("#pathway_img").attr("src",imgName);
-    })
-    </script>
+	var x = d3.scale.ordinal()
+	.rangeRoundBands([0, width], .1);
+
+	var y = d3.scale.linear()
+	.range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+	.scale(x)
+	.orient("bottom")
+	.tickSize(10,10);
+
+	var yAxis = d3.svg.axis()
+	.scale(y)
+	.orient("left")
+
+	var svg = d3.select("#barplot-container").append("svg")
+	.attr("width", width + margin.left + margin.right)
+	.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	$(document).ready(function(){ // preload a bargraph
+		$.getJSON('genes.php', {gene: 'Dkk4'}, function(json){
+			barPlot(json);
+		})
+	})
+
+	$('#gene').keydown(function(){
+		$('#gene-hint').removeClass();
+		$('#gene-hint').addClass("alert alert-info").text('press "Enter" to search');
+	})
+
+	$('#gene').bind("enterKey",function(e){
+		var geneInput = $(this).val();
+		$.getJSON('genes.php', {gene: geneInput}, function(json){
+			barPlot(json);
+		})
+	});
+	$('#gene').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			$(this).trigger("enterKey");
+		}
+	});
+
+	var sampleNames = {
+		C6 :'Pc' ,
+		C7 :'Epi' ,
+		C8 :'Mc' ,
+		C4 :'DC' ,
+		C1 :'DF' ,
+		C5 :'Sch' ,
+		C3 :'DC/Sch' ,
+		C2 :'EC/SM' ,
+	};
+
+	function barPlot(json) {
+		d3.select("#title").remove();
+		d3.select("#x-axis").remove();
+		d3.select("#y-axis").remove();
+		d3.selectAll(".mouseover-title").remove()
+		data = json['data'];
+		for (var i = 0; i < data.length; i++) {
+			data[i]['sampleName'] = sampleNames[data[i].name];
+		};
+		x.domain(data.map(function(d) { return d.sampleName; }));
+		y.domain([0, 1.25*d3.max(data, function(d) { return parseFloat(d.avg); })]);
+		// set up xAxis
+		svg.append("g")
+		.attr("class", "x axis")
+		.attr("id", "x-axis")
+		.attr("transform", "translate(0," + height + ")")
+		.call(xAxis);
+		// set up yAxis
+		svg.append("g")
+		.attr("class", "y axis")
+		.attr("id", "y-axis")
+		.call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.style("font-size", "16px")
+		.text("FPKM");
+
+		// plot bars
+		var rects = svg.selectAll("rect").data(data);
+		rects.enter().append("rect")
+		.attr("class", function(d) {return d.name; })
+		.attr("x", function(d) { return x(d.sampleName); })
+		.attr("width", x.rangeBand())
+		.attr("y", function(d) { return y(d.avg); })
+		.attr("height", function(d) { return height - y(d.avg); })
+
+		rects.transition()
+		.duration(1000)
+		.attr("y", function(d) { return y(d.avg); })
+		.attr("height", function(d) { return height - y(d.avg); });
+
+		rects.append('title')
+		.attr("class", "mouseover-title")
+		.text(function(d){ return 'FPKM: ' + parseFloat(d.avg).toFixed(1); });
+
+		rects.exit().remove();
+
+		// add error bars
+		var errorBars = svg.selectAll(".errorBar").data(data);
+		errorBars.enter().append("path")
+		.attr("class", 'errorBar')
+		.attr("d", function(d){
+			var barWidth = 0.5*x.rangeBand();
+			var xVal = x(d.sampleName)+barWidth;
+			var upper = parseFloat(d.avg) + parseFloat(d.sd),
+			lower = parseFloat(d.avg) - parseFloat(d.sd);
+			return "M"+xVal+","+y(lower)+ "L"+xVal+","+y(d.avg) +"L"+xVal+','+y(upper);
+		});
+
+		errorBars.transition().duration(1000)
+		.attr("d", function(d){
+			var barWidth = 0.5*x.rangeBand();
+			var xVal = x(d.sampleName)+barWidth;
+			var upper = parseFloat(d.avg) + parseFloat(d.sd),
+			lower = parseFloat(d.avg) - parseFloat(d.sd);
+			return "M"+xVal+","+y(lower)+ "L"+xVal+","+y(d.avg) +"L"+xVal+','+y(upper);
+		});
+
+		errorBars.exit().remove();
+
+		// add title
+		var title = svg.append("text")
+		.attr("x", width / 2 )
+		.attr("y", 0)
+		.attr('id', 'title')
+		.style("text-anchor", "middle")
+		.style("font-size", "20px")
+		.text(function(){
+			if (json['signature']) {
+				return json['gene'] + '*';
+			}else {
+				return json['gene'];
+			}
+		});
+}
+
+// autocomplete
+$.getJSON("geneNames.json",function(data){
+	$(function() {
+		$( "#gene" ).autocomplete({
+			minLength: 3,
+			source: data,
+		});
+	});
+});
+
+$("#select_pathway").change(function(){
+	var pathway = $(this).val();
+	var imgName = "img/"+pathway+".svg";
+	$("#pathway_img").attr("src",imgName);
+})
+</script>
 </body>
 </html>

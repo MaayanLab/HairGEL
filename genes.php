@@ -25,8 +25,20 @@ function sanitizeString($str){
 if (isset($_GET['gene'])) {
 	$gene = sanitizeString($_GET['gene']);
 	$query = "SELECT * FROM fpkms WHERE gene='$gene'";
+	$out_array = array();
+
 	$result = mysql_query($query);
 	$row = mysql_fetch_assoc($result);
+	
+	$out_array['data'] = array();
+	$samples = array('C6', 'C7', 'C8', 'C4', 'C1', 'C5', 'C3', 'C2');
+
+	foreach ($samples as $sample) {
+		$avg = $row["$sample".'_avg'];
+		$sd = $row["$sample".'_sd'];
+		array_push($out_array['data'], array('name' => $sample, 'avg' => $avg, 'sd' => $sd));
+	}
+
 	$query = "SELECT signature FROM signature WHERE gene='$gene'";
 	$result = mysql_query($query);
 	if ($result) {
@@ -34,8 +46,10 @@ if (isset($_GET['gene'])) {
 	} else {
 		$signature = False;
 	}	
-	$row['signature'] = $signature;
-	echo json_encode($row);
+	$out_array['signature'] = $signature;
+	$out_array['gene'] = $row['gene'];
+
+	echo json_encode($out_array);
 }
 
 mysql_close($db_server);

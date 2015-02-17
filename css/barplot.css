@@ -1,0 +1,52 @@
+rect:hover {
+  opacity: 0.8;
+}
+
+.errorBar {
+  stroke: black;
+  stroke-width: 3px;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x .tick text {
+	font-size: 14px;
+}
+
+.y .tick text {
+	font-size: 12px;
+}
+
+.C6 {
+	fill:#CC3333;
+}
+.C7 {
+	fill:#FF9933;
+}
+.C8 {
+	fill:#CCCC33;
+}
+.C4 {
+	fill:#009966;
+}
+.C1 {
+	fill:#336699;
+}
+.C5 {
+	fill:#996699;
+}
+.C3 {
+	fill:#66FFCC;
+}
+.C2 {
+	fill:#99CCFF;
+}
