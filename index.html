@@ -17,7 +17,7 @@
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 	<!-- Navigation -->
-	<div id="nav">
+<!-- 	<div id="nav">
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header page-scroll">
@@ -29,10 +29,8 @@
 					</button>
 					<a class="navbar-brand page-scroll" href="#page-top">Hair-GEL</a>
 				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
-						<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
 						<li class="hidden">
 							<a class="page-scroll" href="#page-top"></a>
 						</li>
@@ -41,20 +39,19 @@
 						</li>
 					</ul>
 				</div>
-				<!-- /.navbar-collapse -->
 			</div>
 		</nav>
-	</div>
+	</div> -->
 
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1 translucent-padding" id="big-logo">
-				<div class="row">
+		<div class="row" id="top-banner">
+			<div class="col-lg-10 col-lg-offset-1 translucent-padding" >
+				<div class="row" id="big-logo">
 					<div class="col-xs-6"><h1 class="large-font">Hair-GEL</h1></div>
-					<div class="col-xs-3">
+					<div class="col-xs-3" id="top-middle">
 						<p class="medium-font"> <span class="black-words">searchable</span><br>
 							<u>G</u>ene <u>E</u>xpression <u>L</u>ibrary<br>
-							<span class="black-words">for hair follicles</span><br>
+							<span class="black-words">for hair follicles</span>
 						</p>
 					</div>
 					<div class="col-xs-3 text-center" id="logos">
@@ -76,16 +73,22 @@
 								<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
 							</div>
 							<button class="btn btn-info" id="go-button"><span class="glyphicon glyphicon-search"></span> Search</button>
+							<button id="save">Save</button>
 							<span id="gene-hint" class="help-block">Search for gene of interest by entering official symbol</span>
 						</div>
+						<span class="right-align">* signature genes</span>
 					</div>
 					<div class="col-lg-6 text-center">
 						<img id="legend" height="200" src="img/Cartoon_new.svg">
 					</div>
 				</div>
 				<div class="row">
-					<div id="barplot-container"></div>
-					<span class="text-center">* signature genes</span>
+					<div class="col-lg-6" id="barplot-container">
+					</div>
+					<div class="col-lg-6" id="fpkm-table">
+						<div id="svgdataurl"></div>
+					</div>
+					
 				</div>
 			</div>
 		</div>		
@@ -101,16 +104,12 @@
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1 translucent-padding" id="links">
 				<div class="row vertical-align">
-					<div class="col-xs-2"><a class="btn btn-danger page-scroll" href="#genes"><span class="glyphicon glyphicon-arrow-down"></span> Query genes</a></div>
-					<div class="col-xs-8">
-						<h4>Downloads</h4>
-						<ul>
-							<li><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></li>
-							<li><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></li>
-							<li><a href="downloads/Signature genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> GO analysis</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-2"><a class="btn btn-danger page-scroll" href="#pathways"><span class="glyphicon glyphicon-arrow-down"></span> Query pathways</a></div>
+					<h4>Downloads</h4>
+					<ul>
+						<li><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></li>
+						<li><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></li>
+						<li><a href="downloads/Signature genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> GO analysis</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -121,6 +120,10 @@
 	<script src="js/jquery-ui.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script> 
+
 	<script>
 	// for barplot
 	var margin = {top: 40, right: 10, bottom: 25, left: 50},
@@ -145,6 +148,7 @@
 	var svg = d3.select("#barplot-container").append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
+	// .attr("id", "fpkm-barplot")
 	.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -184,6 +188,10 @@
 		C3 :'DC/Sch' ,
 		C2 :'EC/SM' ,
 	};
+
+	// function fpkmTable(json) {
+
+	// }
 
 	function barPlot(json) {
 		d3.select("#title").remove();
@@ -283,6 +291,40 @@ $.getJSON("geneNames.json",function(data){
 		});
 	});
 });
+
+d3.select("#save").on("click", function(){
+  var html = d3.select("svg")
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .node().parentNode.innerHTML;
+ 
+  console.log(html);
+  var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+  var img = '<img src="'+imgsrc+'">'; 
+  d3.select("#svgdataurl").html(img);
+ 
+ 
+  // var canvas = document.querySelector("canvas"),
+	 //  context = canvas.getContext("2d");
+ 
+  // var image = new Image;
+  // image.src = imgsrc;
+  // image.onload = function() {
+	 //  context.drawImage(image, 0, 0);
+ 
+	 //  var canvasdata = canvas.toDataURL("image/png");
+ 
+	 //  var pngimg = '<img src="'+canvasdata+'">'; 
+  // 	  d3.select("#pngdataurl").html(pngimg);
+ 
+	 //  var a = document.createElement("a");
+	 //  a.download = "sample.png";
+	 //  a.href = canvasdata;
+	 //  a.click();
+  // };
+ 
+});
+
 
 </script>
 <script>

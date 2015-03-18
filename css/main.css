@@ -26,21 +26,13 @@ html {
     }
 }
 
-.intro-section {
-    height: 100%;
-    padding-top: 50px;
-}
-
-.gene-section {
-    height: 100%;
-    padding-top: 150px;
-    /*text-align: center;*/
-}
-
 .translucent-padding {
     background-color: rgba(221,221,221,0.9);
 }
-
+#top-banner {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
 #big-logo {
     padding-top: 0px;
     padding-bottom: 0px;
@@ -86,4 +78,13 @@ html {
 #legend {
     max-width: 100%;
     max-height: 100%;
+}
+
+.right-align {
+	text-align: right;
+}
+
+p {
+	line-height: 22px;
+	padding-top: 10%;
 }
