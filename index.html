@@ -46,7 +46,6 @@
 		</nav>
 	</div>
 
-	<!-- <section id="intro" class="intro-section"> -->
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1 translucent-padding" id="big-logo">
@@ -66,6 +65,30 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1 translucent-padding">
+				<div class="row">
+					<div class="col-lg-6 text-center">
+						<div class="form-inline">
+							<h3>E14.5 embryonic mouse skin</h3>
+							<div class="form-group">
+								<label for="gene" class="control-label">gene query:</label>
+								<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
+							</div>
+							<button class="btn btn-info" id="go-button"><span class="glyphicon glyphicon-search"></span> Search</button>
+							<span id="gene-hint" class="help-block">Search for gene of interest by entering official symbol</span>
+						</div>
+					</div>
+					<div class="col-lg-6 text-center">
+						<img id="legend" height="200" src="img/Cartoon_new.svg">
+					</div>
+				</div>
+				<div class="row">
+					<div id="barplot-container"></div>
+					<span class="text-center">* signature genes</span>
+				</div>
+			</div>
+		</div>		
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1" id="top-banner">
 				<div class="row">
@@ -92,45 +115,11 @@
 			</div>
 		</div>
 	</div> <!-- end of container -->
-	<!-- </section> -->
-	<!-- Gene Section -->
-	<section id="genes" class="gene-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-10 col-lg-offset-1 translucent-padding">
-					<div class="row">
-						<div class="col-sm-7">
-							<div class="row">
-								<div class="form-group col-xs-10 col-xs-offset-1">
-									<h1>Query genes</h1>
-									<label for="gene" class="col-xs-4 control-label">gene query:</label>
-									<div class="col-xs-8">
-										<input type="text" id="gene" class="form-control ui-autocomplete-input" placeholder="Input official symbol" />
-										<!-- <p id="gene-description"></p> -->
-									</div>
-								</div>
-							</div>
-							<div class="row text-center">
-								<span id="gene-hint"></span>
-							</div>
-							<div id="barplot-container" class="row"></div>
-							<span class="text-center">* signature genes</span>
-						</div>
-						<div class="col-sm-5">
-							<img id="legend" height="600" src="img/Cartoon_new.svg">
-						</div>
-						<div class="text-center"><a class="btn btn-primary page-scroll" href="#page-top"><span class="glyphicon glyphicon-arrow-up"></span></a></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+
 	<!-- JavaScripts -->
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-ui.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<!-- <script src="js/jquery.easing.min.js"></script> -->
-	<!-- <script src="js/scrolling-nav.js"></script> -->
 	<script src="js/d3.v3.min.js"></script>
 	<script>
 	// for barplot
@@ -165,20 +154,22 @@
 		})
 	})
 
-	$('#gene').keydown(function(){
-		$('#gene-hint').removeClass();
-		$('#gene-hint').addClass("alert alert-info").text('press "Enter" to search');
-	})
-
 	$('#gene').bind("enterKey",function(e){
 		var geneInput = $(this).val();
 		$.getJSON('genes.php', {gene: geneInput}, function(json){
 			barPlot(json);
 		})
 	});
+
+	$('#go-button').click(function(){
+		var geneInput = $('#gene').val();
+		$.getJSON('genes.php', {gene: geneInput}, function(json){
+			barPlot(json);
+		})
+	})
+
 	$('#gene').keyup(function(e){
-		if(e.keyCode == 13)
-		{
+		if(e.keyCode == 13) {
 			$(this).trigger("enterKey");
 		}
 	});
