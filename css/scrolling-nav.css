@@ -60,9 +60,9 @@ html {
 }
 
 .large-font {
-    font-size: 800%;
+    font-size: 600%;
     font-style: italic;
-    color: #fff;
+    color: #0F0FF4;
 }
 
 .row {
@@ -80,8 +80,11 @@ html {
 }
 .medium-font {
     font-size: 150%;
-    color: #fff;
+    color: #0F0FF4;
     font-style: italic;
+}
+.black-words {
+    color: #000;
 }
 
 #legend {
