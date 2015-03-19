@@ -15,7 +15,7 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top">
 	<!-- Navigation -->
 <!-- 	<div id="nav">
 		<nav class="navbar navbar-inverse" role="navigation">
@@ -73,7 +73,7 @@
 								<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
 							</div>
 							<button class="btn btn-info" id="go-button"><span class="glyphicon glyphicon-search"></span> Search</button>
-							<button id="save">Save</button>
+							
 							<span id="gene-hint" class="help-block">Search for gene of interest by entering official symbol</span>
 						</div>
 						<span class="right-align">* signature genes</span>
@@ -85,8 +85,10 @@
 				<div class="row">
 					<div class="col-lg-6" id="barplot-container">
 					</div>
-					<div class="col-lg-6 table-responsive" id="fpkm-table">
+					<div class="col-lg-6 table-responsive">
 						<h3><i>FPKMs:</i></h3>
+						<div id="fpkm-table"></div>
+						<button class="btn btn-info" id="save-button"><span class="glyphicon glyphicon-save-file"></span> Save image</button>
 					</div>
 					
 				</div>
@@ -97,30 +99,29 @@
 			<div class="col-lg-10 col-lg-offset-1 translucent-padding text-center" id="links">
 				<table>
 					<tbody>
-					<tr>
-						<td><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></td>
-						<td><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></td>
-					</tr>
+						<tr>
+							<td><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> download FPKMs</a></td>
+							<td><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> download signature gene lists</a></td>
+							<td><a href="" target="_blank"><span class="glyphicon glyphicon-new-window"></span> GEO data</a></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
+		<div class="row footer">
+			<div class="col-lg-10 col-lg-offset-1">
+				<span><i>Please cite: Sennett et al. Dev Cell (2015)</i> <br>A Transcriptome Atlas of Embryonic Hair Follicle Progenitors, Their Niche and the Developing Skin </span>
+			</div>
+		</div>
+		<canvas id="svgdataurl"></canvas>
 	</div> <!-- end of container -->
 
-	<div class="footer">
-		<div class="text-center">
-			<span><i>Please cite: Sennett et al. Dev Cell (2015)</i> A Transcriptome Atlas of Embryonic Hair Follicle Progenitors, Their Niche and the Developing Skin </span>
-		</div>
-	</div>
 	<!-- JavaScripts -->
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-ui.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/d3.v3.min.js"></script>
-	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
-	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
-	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script> 
-
+	<script src="js/saveSvgAsPng.js"></script>
 	<script>
 	// for barplot
 	var margin = {top: 40, right: 10, bottom: 25, left: 50},
@@ -145,7 +146,7 @@
 	var svg = d3.select("#barplot-container").append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
-	// .attr("id", "fpkm-barplot")
+	.attr("id", "fpkm-barplot")
 	.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -193,20 +194,20 @@
 	function fpkmTable(json) {
 		d3.select("#fpkm-table-gene").remove()
 		var table = d3.select("#fpkm-table").append("table")
-			.attr('id', 'fpkm-table-gene')
-			.attr('class', 'table table-bordered table-condensed');
+		.attr('id', 'fpkm-table-gene')
+		.attr('class', 'table table-bordered table-condensed');
 		data = json['data'];
 		for (var i = 0; i < data.length; i++) {
 			data[i]['sampleName'] = sampleNames[data[i].name];
 		};
 		var theads = table.append("thead").append("tr")
-			.selectAll("th").data(data)
-			.enter().append("th")
-			.text(function(d) { return d.sampleName; } )
+		.selectAll("th").data(data)
+		.enter().append("th")
+		.text(function(d) { return d.sampleName; } )
 		var trs = table.append("tbody").append("tr")
-			.selectAll("td").data(data)
-			.enter().append("td")
-			.text(function(d){ return parseFloat(d.avg).toFixed(1); })
+		.selectAll("td").data(data)
+		.enter().append("td")
+		.text(function(d){ return parseFloat(d.avg).toFixed(1); })
 	}
 
 	function barPlot(json) {
@@ -298,7 +299,6 @@
 		});
 	}
 
-
 // autocomplete
 $.getJSON("geneNames.json",function(data){
 	$(function() {
@@ -309,19 +309,9 @@ $.getJSON("geneNames.json",function(data){
 	});
 });
 
-d3.select("#save").on("click", function(){
-	var html = d3.select("svg")
-	.attr("version", 1.1)
-	.attr("xmlns", "http://www.w3.org/2000/svg")
-	.node().parentNode.innerHTML;
-
-	console.log(html);
-	var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
-	var img = '<img src="'+imgsrc+'">'; 
-	d3.select("#svgdataurl").html(html);
-
+d3.select("#save-button").on("click", function(){
+	saveSvgAsPng(document.getElementById("fpkm-barplot"), "fpkm-barplot.png"); 
 });
-
 
 </script>
 <script>
