@@ -56,7 +56,7 @@
 					</div>
 					<div class="col-xs-3 text-center" id="logos">
 						<a href="http://icahn.mssm.edu/"><img src="img/MSSMLogo.png"></a><br>
-						<a href="http://research.mssm.edu/rendl/">Rendl Lab</a><br>
+						<a href="http://research.mssm.edu/rendl/">Rendl Lab</a>
 						<a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a>
 					</div>
 				</div>
@@ -85,8 +85,8 @@
 				<div class="row">
 					<div class="col-lg-6" id="barplot-container">
 					</div>
-					<div class="col-lg-6" id="fpkm-table">
-						<div id="svgdataurl"></div>
+					<div class="col-lg-6 table-responsive" id="fpkm-table">
+						<h3><i>FPKMs:</i></h3>
 					</div>
 					
 				</div>
@@ -96,10 +96,12 @@
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1 translucent-padding text-center" id="links">
 				<table>
+					<tbody>
 					<tr>
 						<td><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></td>
 						<td><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></td>
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -107,7 +109,7 @@
 
 	<div class="footer">
 		<div class="text-center">
-			<span>Please cite: <i><strong>A Transcriptome Atlas of Embryonic Hair Follicle Stem Cells and Their Niche</strong> J.2015</i> </span>
+			<span><i>Please cite: Sennett et al. Dev Cell (2015)</i> A Transcriptome Atlas of Embryonic Hair Follicle Progenitors, Their Niche and the Developing Skin </span>
 		</div>
 	</div>
 	<!-- JavaScripts -->
@@ -150,6 +152,7 @@
 	$(document).ready(function(){ // preload a bargraph
 		$.getJSON('genes.php', {gene: 'Dkk4'}, function(json){
 			barPlot(json);
+			fpkmTable(json);
 		})
 	})
 
@@ -157,6 +160,7 @@
 		var geneInput = $(this).val();
 		$.getJSON('genes.php', {gene: geneInput}, function(json){
 			barPlot(json);
+			fpkmTable(json);
 		})
 	});
 
@@ -164,6 +168,7 @@
 		var geneInput = $('#gene').val();
 		$.getJSON('genes.php', {gene: geneInput}, function(json){
 			barPlot(json);
+			fpkmTable(json);
 		})
 	})
 
@@ -184,9 +189,25 @@
 		C2 :'EC/SM' ,
 	};
 
-	// function fpkmTable(json) {
-
-	// }
+	// table
+	function fpkmTable(json) {
+		d3.select("#fpkm-table-gene").remove()
+		var table = d3.select("#fpkm-table").append("table")
+			.attr('id', 'fpkm-table-gene')
+			.attr('class', 'table table-bordered table-condensed');
+		data = json['data'];
+		for (var i = 0; i < data.length; i++) {
+			data[i]['sampleName'] = sampleNames[data[i].name];
+		};
+		var theads = table.append("thead").append("tr")
+			.selectAll("th").data(data)
+			.enter().append("th")
+			.text(function(d) { return d.sampleName; } )
+		var trs = table.append("tbody").append("tr")
+			.selectAll("td").data(data)
+			.enter().append("td")
+			.text(function(d){ return parseFloat(d.avg).toFixed(1); })
+	}
 
 	function barPlot(json) {
 		d3.select("#title").remove();
@@ -276,6 +297,7 @@
 			}
 		});
 	}
+
 
 // autocomplete
 $.getJSON("geneNames.json",function(data){

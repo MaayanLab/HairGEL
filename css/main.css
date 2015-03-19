@@ -100,3 +100,7 @@ p {
 	line-height: 22px;
 	padding-top: 10%;
 }
+
+td {
+   width: 12.5%;
+}
