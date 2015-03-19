@@ -26,12 +26,20 @@ html {
     }
 }
 
+@media(max-width:480px){
+    body{
+        background:#1F77B4!important;
+        width:auto!important;
+        height:auto!important;
+    }
+}
+
 .translucent-padding {
     background-color: rgba(221,221,221,0.9);
 }
 #top-banner {
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 #big-logo {
     padding-top: 0px;
