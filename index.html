@@ -92,37 +92,32 @@
 				</div>
 			</div>
 		</div>		
+
 		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1" id="top-banner">
-				<div class="row">
-					<div class="col-sm-12" id="cite">
-						<h3>Please cite: <i><strong>A Transcriptome Atlas of Embryonic Hair Follicle Stem Cells and Their Niche</strong> J.2015</i> </h3>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1 translucent-padding" id="links">
-				<div class="row vertical-align">
-					<h4>Downloads</h4>
-					<ul>
-						<li><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></li>
-						<li><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></li>
-						<li><a href="downloads/Signature genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> GO analysis</a></li>
-					</ul>
-				</div>
+			<div class="col-lg-10 col-lg-offset-1 translucent-padding text-center" id="links">
+				<table>
+					<tr>
+						<td><a href="downloads/FPKMs all genes.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> FPKM data</a></td>
+						<td><a href="downloads/GO analysis Fig4.xls" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> signatures</a></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div> <!-- end of container -->
 
+	<div class="footer">
+		<div class="text-center">
+			<span>Please cite: <i><strong>A Transcriptome Atlas of Embryonic Hair Follicle Stem Cells and Their Niche</strong> J.2015</i> </span>
+		</div>
+	</div>
 	<!-- JavaScripts -->
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-ui.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/d3.v3.min.js"></script>
-<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
-<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
-<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script> 
+	<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
+	<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
+	<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script> 
 
 	<script>
 	// for barplot
@@ -293,36 +288,16 @@ $.getJSON("geneNames.json",function(data){
 });
 
 d3.select("#save").on("click", function(){
-  var html = d3.select("svg")
-        .attr("version", 1.1)
-        .attr("xmlns", "http://www.w3.org/2000/svg")
-        .node().parentNode.innerHTML;
- 
-  console.log(html);
-  var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
-  var img = '<img src="'+imgsrc+'">'; 
-  d3.select("#svgdataurl").html(img);
- 
- 
-  // var canvas = document.querySelector("canvas"),
-	 //  context = canvas.getContext("2d");
- 
-  // var image = new Image;
-  // image.src = imgsrc;
-  // image.onload = function() {
-	 //  context.drawImage(image, 0, 0);
- 
-	 //  var canvasdata = canvas.toDataURL("image/png");
- 
-	 //  var pngimg = '<img src="'+canvasdata+'">'; 
-  // 	  d3.select("#pngdataurl").html(pngimg);
- 
-	 //  var a = document.createElement("a");
-	 //  a.download = "sample.png";
-	 //  a.href = canvasdata;
-	 //  a.click();
-  // };
- 
+	var html = d3.select("svg")
+	.attr("version", 1.1)
+	.attr("xmlns", "http://www.w3.org/2000/svg")
+	.node().parentNode.innerHTML;
+
+	console.log(html);
+	var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+	var img = '<img src="'+imgsrc+'">'; 
+	d3.select("#svgdataurl").html(html);
+
 });
 
 
