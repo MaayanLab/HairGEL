@@ -32,6 +32,16 @@ html {
         width:auto!important;
         height:auto!important;
     }
+    .large-font {
+        font-size: 300%!important;
+    }
+    .medium-font {
+        font-size: 100%!important;
+    }
+    p {
+        line-height: 12px!important;
+        padding-top: 0%!important;
+    }
 }
 
 .translucent-padding {
@@ -54,14 +64,10 @@ html {
 }
 
 .large-font {
-	text-align: right;
+	text-align: center;
     font-size: 600%;
     font-style: italic;
     color: #0F0FF4;
-}
-
-.row {
-  /*position: relative;*/
 }
 
 .bottom-align-text {
@@ -74,7 +80,7 @@ html {
     align-items: center;
 }
 .medium-font {
-	text-align: left;
+	text-align: center;
     font-size: 150%;
     color: #0F0FF4;
     font-style: italic;
@@ -98,7 +104,7 @@ p {
 }
 
 td {
-   width: 12.5%;
+ width: 12.5%;
 }
 
 .footer {

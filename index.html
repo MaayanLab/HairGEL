@@ -43,9 +43,9 @@
 		</nav>
 	</div> -->
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row" id="top-banner">
-			<div class="col-lg-10 col-lg-offset-1 translucent-padding" >
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding" >
 				<div class="row" id="big-logo">
 					<div class="col-sm-6"><h1 class="large-font">Hair-GEL</h1></div>
 					<div class="col-sm-3" id="top-middle">
@@ -56,16 +56,16 @@
 					</div>
 					<div class="col-sm-3 text-center" id="logos">
 						<a href="http://icahn.mssm.edu/"><img src="img/MSSMLogo.png"></a><br>
-						<a href="http://research.mssm.edu/rendl/">Rendl Lab</a>
+						<a href="http://research.mssm.edu/rendl/">Rendl Lab</a>,
 						<a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1 translucent-padding">
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding">
 				<div class="row">
-					<div class="col-lg-6 text-center">
+					<div class="col-lg-6 col-xs-12 text-center">
 						<div class="form-inline">
 							<h3>E14.5 embryonic mouse skin</h3>
 							<div class="form-group">
@@ -73,7 +73,6 @@
 								<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
 							</div>
 							<button class="btn btn-info" id="go-button"><span class="glyphicon glyphicon-search"></span> Search</button>
-							
 							<span id="gene-hint" class="help-block">Search for gene of interest by entering official symbol</span>
 						</div>
 						<span class="right-align">* signature genes</span>
@@ -82,7 +81,7 @@
 							<button class="btn btn-info" id="save-button"><span class="glyphicon glyphicon-save-file"></span> Save image</button>
 						</div>
 					</div>
-					<div class="col-lg-6 text-center">
+					<div class="col-lg-6 col-xs-12 text-center">
 						<img id="legend" width="440" src="img/Cartoon_new.svg">
 						<div>
 							<h3><i>FPKMs:</i></h3>
@@ -94,7 +93,7 @@
 		</div>		
 
 		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1 translucent-padding text-center" id="links">
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding text-center" id="links">
 				<table>
 					<tbody>
 						<tr>
@@ -107,7 +106,7 @@
 			</div>
 		</div>
 		<div class="row footer">
-			<div class="col-lg-10 col-lg-offset-1">
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12">
 				<span><i>Please cite: Sennett et al. Dev Cell (2015)</i> <br>A Transcriptome Atlas of Embryonic Hair Follicle Progenitors, Their Niche and the Developing Skin </span>
 			</div>
 		</div>
@@ -121,9 +120,15 @@
 	<script src="js/saveSvgAsPng.js"></script>
 	<script>
 	// for barplot
-	var margin = {top: 40, right: 10, bottom: 25, left: 50},
-	width = 500 - margin.left - margin.right,
-	height = 300 - margin.top - margin.bottom;
+	var screenWidth = $(window).width();
+	var margin = {top: 40, right: 20, bottom: 50, left: 50};
+	if (screenWidth > 500) {
+		var width = 500 - margin.left - margin.right,
+		height = 300 - margin.top - margin.bottom;
+	} else{
+		var width = 0.9*(screenWidth - margin.left - margin.right),
+		height = 0.9*0.6*(screenWidth - margin.top - margin.bottom);
+	};
 
 	var x = d3.scale.ordinal()
 	.rangeRoundBands([0, width], .1);
@@ -134,7 +139,7 @@
 	var xAxis = d3.svg.axis()
 	.scale(x)
 	.orient("bottom")
-	.tickSize(10,10);
+	.tickSize(5,5);
 
 	var yAxis = d3.svg.axis()
 	.scale(y)
@@ -223,7 +228,15 @@
 		.attr("class", "x axis")
 		.attr("id", "x-axis")
 		.attr("transform", "translate(0," + height + ")")
-		.call(xAxis);
+		.call(xAxis)
+		.selectAll("text")
+		.style("text-anchor", "end")
+		.attr("dx", "-.8em")
+		.attr("dy", ".0em")
+		.attr("transform", function(d) {
+			return "rotate(-45)" 
+		});
+
 		// set up yAxis
 		svg.append("g")
 		.attr("class", "y axis")
@@ -233,7 +246,7 @@
 		.attr("transform", "rotate(-90)")
 		.attr("y", 6)
 		.attr("dy", ".71em")
-		.style("text-anchor", "end")
+		.style("text-anchor", "middle")
 		.style("font-size", "16px")
 		.text("FPKM");
 
