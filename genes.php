@@ -1,7 +1,7 @@
 <?php 
 $db_database = 'hairgel';
 $cwd = getcwd();
-if ($cwd === "C:\\xampp\htdocs\hairgel") { // localhost
+if ($cwd === "C:\\xampp\htdocs\hairgel" || $cwd === "/Library/WebServer/Documents/hairgel") { // localhost
 	$db_hostname = 'localhost';
 	$db_username = 'root';
 	$db_password = '';

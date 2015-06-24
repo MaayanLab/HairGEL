@@ -16,33 +16,6 @@
 <![endif]-->
 </head>
 <body id="page-top">
-	<!-- Navigation -->
-<!-- 	<div id="nav">
-		<nav class="navbar navbar-inverse" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header page-scroll">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand page-scroll" href="#page-top">Hair-GEL</a>
-				</div>
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav">
-						<li class="hidden">
-							<a class="page-scroll" href="#page-top"></a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#genes">Query genes</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div> -->
-
 	<div class="container">
 		<div class="row" id="top-banner">
 			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding" >
@@ -69,11 +42,14 @@
 						<div class="form-inline">
 							<h3>E14.5 embryonic mouse skin</h3>
 							<div class="form-group">
-								<label for="gene" class="control-label">gene query:</label>
+								<label for="gene" class="control-label">Gene Symbol:</label>
 								<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
 							</div>
 							<button class="btn btn-info" id="go-button"><span class="glyphicon glyphicon-search"></span> Search</button>
 							<span id="gene-hint" class="help-block">Search for gene of interest by entering official symbol</span>
+							<strong>examples:</strong>
+							<span><a href="#" class="example">Mitf</a>, <a href="#" class="example">Krt1</a>, <a href="#" class="example">Sox2</a>, <a href="#" class="example">Lox</a>, <a href="#" class="example">Gfra1</a>, <a href="#" class="example">Pecam1</a> </span>
+							
 						</div>
 						<span class="right-align">* signature genes</span>
 						<div>
@@ -98,7 +74,7 @@
 					<tbody>
 						<tr>
 							<td><a href="" target=""><span class="glyphicon glyphicon-download-alt"></span> download signature gene lists</a></td>
-							<td><a href="" target="_blank"><span class="glyphicon glyphicon-new-window"></span> GEO data</a></td>
+							<td><a href="" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Access the dataset from GEO</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -106,7 +82,7 @@
 		</div>
 		<div class="row footer">
 			<div class="col-lg-10 col-lg-offset-1 col-xs-12">
-				<span><i>Please cite: Sennett et al. (2015)</i> <br>A Transcriptome Atlas of Embryonic Hair Follicle Progenitors, Their Niche and the Developing Skin </span>
+				<span><i>Please cite: </i><br>Sennett R, Wang Z, Rezza A, Grisanti L, Roitershtein N, Sicchio C, Mok KW, Heitman NJ, Clavel C, Ma'ayan A, Rendl M (2015)<strong> An Integrated Transcriptome Atlas of Embryonic Hair Follicle Progenitors, their Niche and the Developing Skin.</strong> <i>Developmental Cell</i> (in press) </span>
 			</div>
 		</div>
 	</div> <!-- end of container -->
@@ -179,6 +155,14 @@
 			$(this).trigger("enterKey");
 		}
 	});
+
+	$('.example').click(function(){ // to show example when clicked
+		var geneInput = $(this).text();
+		$.getJSON('genes.php', {gene: geneInput}, function(json){
+			barPlot(json);
+			fpkmTable(json);
+		})
+	})
 
 	var sampleNames = {
 		C6 :'Pc' ,
