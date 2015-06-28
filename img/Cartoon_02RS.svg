@@ -243,6 +243,6 @@
 	<text transform="matrix(1 0 0 1 64.8643 51.9932)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="9.3888">Dermal</tspan><tspan x="0" y="7.511" font-family="'ArialMT'" font-size="9.3888">Condensate (DC)</tspan></text>
 	<text transform="matrix(1 0 0 1 7.8745 56.7842)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="9.3888">Fibroblasts</tspan><tspan x="0" y="7.511" font-family="'ArialMT'" font-size="9.3888">    (Fb)</tspan></text>
 	<text transform="matrix(1 0 0 1 60.9268 74.1909)" font-family="'ArialMT'" font-size="9.3888">Schwann cells (Sch)</text>
-	<text transform="matrix(1 0 0 1 6.2041 87.9614)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="9.3888">DC/Sch: </tspan><tspan x="37.564" y="0" font-family="'ArialMT'" font-size="8.45">DC and Sch cells</tspan><tspan x="0" y="8.45" font-family="'ArialMT'" font-size="9.3888">Neg: </tspan><tspan x="22.44" y="8.45" font-family="'ArialMT'" font-size="8.45">un-labeled dermal cells</tspan></text>
+	<text transform="matrix(1 0 0 1 6.2041 87.9614)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="9.3888">DC/Sch: </tspan><tspan x="37.564" y="0" font-family="'ArialMT'" font-size="8.45">DC and Sch cells</tspan><tspan x="0" y="8.45" font-family="'ArialMT'" font-size="9.3888">Neg: </tspan><tspan x="22.44" y="8.45" font-family="'ArialMT'" font-size="8.45">unlabeled dermal cells</tspan></text>
 </g>
 </svg>
