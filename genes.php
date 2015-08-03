@@ -23,16 +23,28 @@ function sanitizeString($str){
 	return mysql_real_escape_string($str);
 }
 
+if (isset($_GET['table'])) {
+	$table = $_GET['table'];
+} else { // default for $table
+	$table = 'fpkms';
+}
+
+if ($table === 'fpkms') {
+	$samples = array('C6', 'C7', 'C8', 'C4', 'C1', 'C5', 'C3', 'C2');
+} else {
+	$samples = array('X1','X2','X3','X4','X5','X6','X7','X8','X9','X10','X11','X12','X13','X14','X15','X16','X17','X18','X19','X20');
+}
+
+
 if (isset($_GET['gene'])) {
 	$gene = sanitizeString($_GET['gene']);
-	$query = "SELECT * FROM fpkms WHERE gene='$gene'";
+	$query = "SELECT * FROM $table WHERE gene='$gene'";
 	$out_array = array();
 
 	$result = mysql_query($query);
 	$row = mysql_fetch_assoc($result);
 	
 	$out_array['data'] = array();
-	$samples = array('C6', 'C7', 'C8', 'C4', 'C1', 'C5', 'C3', 'C2');
 
 	foreach ($samples as $sample) {
 		$avg = $row["$sample".'_avg'];
