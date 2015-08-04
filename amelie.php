@@ -1,4 +1,6 @@
 <?php
+list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = 
+  explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	header("WWW-Authenticate: Basic realm=\"Private Area\"");
 	header("HTTP/1.0 401 Unauthorized");
@@ -10,7 +12,6 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$doc = new DOMDocument();
 		$doc->loadHTMLFile("index2.html");
 		echo $doc->saveHTML();
-
 
 	} else {
 		header("WWW-Authenticate: Basic realm=\"Private Area\"");
