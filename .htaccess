@@ -2,4 +2,3 @@ RewriteEngine On
 RewriteCond %{HTTP:Authorization} ^(.+)$
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ amelie.php [QSA,L]
