@@ -51,24 +51,17 @@ rect:hover {
 	fill:#99CCFF;
 }
 
-.X1 {fill:#1f77b4;}
-.X2 {fill:#aec7e8;}
-.X3 {fill:#ff7f0e;}
-.X4 {fill:#ffbb78;}
-.X5 {fill:#2ca02c;}
-.X6 {fill:#98df8a;}
-.X7 {fill:#d62728;}
-.X8 {fill:#ff9896;}
-.X9 {fill:#9467bd;}
-.X10 {fill:#c5b0d5;}
-.X11 {fill:#8c564b;}
-.X12 {fill:#c49c94;}
-.X13 {fill:#e377c2;}
-.X14 {fill:#f7b6d2;}
-.X15 {fill:#7f7f7f;}
-.X16 {fill:#c7c7c7;}
-.X17 {fill:#bcbd22;}
-.X18 {fill:#dbdb8d;}
-.X19 {fill:#17becf;}
-.X20 {fill:#9edae5;}
-
+.X1 {fill: rgb(79, 98, 40);}
+.X2 {fill: rgb(51, 153, 51);}
+.X3 {fill: rgb(146, 208, 80);}
+.X4 {fill: rgb(96, 74, 123);}
+.X5 {fill: rgb(192, 0, 0);}
+.X6 {fill: rgb(255, 189, 34);}
+.X7 {fill: rgb(119, 147, 60);}
+.X8 {fill: rgb(0, 0, 0);}
+.X13 {fill: rgb(10, 56, 204);}
+.X14 {fill: rgb(95, 131, 247);}
+.X16 {fill: rgb(252, 234, 4);}
+.X17 {fill: rgb(255, 192, 0);}
+.X19 {fill: rgb(252, 213, 181);}
+.X20 {fill: rgb(228, 108, 10);}

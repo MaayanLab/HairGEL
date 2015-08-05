@@ -31,8 +31,10 @@ if (isset($_GET['table'])) {
 
 if ($table === 'fpkms') {
 	$samples = array('C6', 'C7', 'C8', 'C4', 'C1', 'C5', 'C3', 'C2');
+	$signature_table = 'signature';
 } else {
-	$samples = array('X1','X2','X3','X4','X5','X6','X7','X8','X9','X10','X11','X12','X13','X14','X15','X16','X17','X18','X19','X20');
+	$samples = array('X1','X2','X3','X4','X5','X6','X7','X8','X13','X14','X16','X17','X19','X20');
+	$signature_table = 'signature2';
 }
 
 
@@ -52,7 +54,7 @@ if (isset($_GET['gene'])) {
 		array_push($out_array['data'], array('name' => $sample, 'avg' => $avg, 'sd' => $sd));
 	}
 
-	$query2 = "SELECT signature FROM signature WHERE gene='$gene'";
+	$query2 = "SELECT signature FROM $signature_table WHERE gene='$gene'";
 	$result2 = mysql_query($query2);
 	$signature = mysql_fetch_assoc($result2);
 	$out_array['signature'] = $signature['signature'];

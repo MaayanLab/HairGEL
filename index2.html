@@ -38,9 +38,9 @@
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding">
 				<div class="row">
-					<div class="col-lg-12 col-xs-12 text-center">
+					<div class="col-lg-6 col-xs-12 text-center">
 						<div class="form-inline">
-							<h3>E4 embryonic mouse skin (Amelie's data)</h3>
+							<h3>P5 postnatal mouse skin</h3>
 							<div class="form-group">
 								<label for="gene" class="control-label">Gene Symbol:</label>
 								<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
@@ -49,7 +49,7 @@
 							<span id="gene-hint" class="help-block">Search for gene of interest by entering <a href="http://www.informatics.jax.org/marker">official symbol</a></span>
 							<strong>Examples:</strong>
 							<span>
-								<a href="#" class="example">Fgf20</a>, <a href="#" class="example">Ovol1</a>, <a href="#" class="example">Mitf</a>, <a href="#" class="example">Sox2</a>, <a href="#" class="example">Dpt</a>, <a href="#" class="example">Gfra1</a> 
+								<a href="#" class="example">Krt1</a>, <a href="#" class="example">Ovol1</a>, <a href="#" class="example">Mitf</a>, <a href="#" class="example">Sox2</a>, <a href="#" class="example">Dpt</a>, <a href="#" class="example">Gfra1</a> 
 							</span>
 							
 						</div>
@@ -59,6 +59,9 @@
 							<button class="btn btn-info" id="save-button"><span class="glyphicon glyphicon-save-file"></span> Save image</button>
 						</div>
 					</div>
+					<div class="col-lg-6 col-xs-12 text-center">
+						<img id="legend" width="440" src="img/14_pops_hairgel.png">
+					</div>					
 				</div>	
 				<div class="row">
 					<div class="col-lg-12 col-xs-12 text-center">
@@ -102,7 +105,7 @@
 
 	// for barplot
 	var screenWidth = $(window).width();
-	var margin = {top: 40, right: 20, bottom: 50, left: 50};
+	var margin = {top: 40, right: 20, bottom: 70, left: 50};
 	if (screenWidth > 500) {
 		var width = 500 - margin.left - margin.right,
 		height = 300 - margin.top - margin.bottom;
@@ -171,26 +174,20 @@
 	})
 
 	var sampleNames = {
-		X1: "X1",
-		X2: "X2",
-		X3: "X3",
-		X4: "X4",
-		X5: "X5",
-		X6: "X6",
-		X7: "X7",
-		X8: "X8",
-		X9: "X9",
-		X10: "X10",
-		X11: "X11",
-		X12: "X12",
-		X13: "X13",
-		X14: "X14",
-		X15: "X15",
-		X16: "X16",
-		X17: "X17",
-		X18: "X18",
-		X19: "X19",
-		X20: "X20",
+		X1: "Epi",
+		X2: "ORS",
+		X3: "Mx",
+		X4: "Mc",
+		X5: "DF",
+		X6: "DP",
+		X7: "TAC",
+		X8: "Neg",
+		X13: "HF-SC",
+		X14: "HF-ORS",
+		X16: "ZZ-DP",
+		X17: "GH/AA-DP",
+		X19: "GH-DP",
+		X20: "AA/ZZ-DP",
 	};
 
 	// table

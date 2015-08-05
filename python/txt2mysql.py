@@ -2,6 +2,7 @@
 import os, sys
 import MySQLdb
 import numpy as np
+import openpyxl as px
 # sys.path.append('C:\Users\Zichen\Documents\\bitbucket\maayanlab_utils')
 sys.path.append('/Users/zichen/Documents/bitbucket/maayanlab_utils')
 from fileIO import read_df
@@ -58,33 +59,61 @@ cur = conn.cursor()
 # 		conn.rollback()
 
 ## insert Amelie data
-mat, genes, samples = read_df('repFpkmMatrix_all_gene_symbols.txt')
-samples = np.array(samples)
-print mat.shape, len(genes), len(samples)
+# mat, genes, samples = read_df('repFpkmMatrix_all_gene_symbols.txt')
+# samples = np.array(samples)
+# print mat.shape, len(genes), len(samples)
 
-# sort columns
-samples_numbers = np.array([int(s.split('_')[0][1:]) for s in samples])
-srt_idx = samples_numbers.argsort()
-samples = samples[srt_idx]
-mat = mat[:, srt_idx]
+# # sort columns
+# samples_numbers = np.array([int(s.split('_')[0][1:]) for s in samples])
+# srt_idx = samples_numbers.argsort()
+# samples = samples[srt_idx]
+# mat = mat[:, srt_idx]
 
-print samples
-ii = 0
-for row,g in zip(mat, genes):
-	for gene in g.split(','):
-		ii += 1
+# print samples
+# ii = 0
+# for row,g in zip(mat, genes):
+# 	for gene in g.split(','):
+# 		ii += 1
+# 		try:
+# 			values = [ii, gene]
+# 			for i in np.arange(0,40,2):
+# 				values.append( row[i:i+2].mean() )
+# 				values.append( row[i:i+2].std() )
+# 			# print len(values)
+# 			sql = "INSERT INTO fpkms2 VALUES (%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"%tuple(values)
+# 			# print sql
+# 			cur.execute(sql)
+# 			conn.commit()
+# 		except Exception, e:
+# 			print e
+# 			conn.rollback()
+
+## insert Amelie signatures
+W = px.load_workbook('SignatureGenes_AR.xlsx', use_iterators = True)
+sheet_names = W.get_sheet_names()
+sigs = []
+for sheet_name in sheet_names:
+	sheet = W.get_sheet_by_name(name = sheet_name)
+	i = 1
+	while True:
 		try:
-			values = [ii, gene]
-			for i in np.arange(0,40,2):
-				values.append( row[i:i+2].mean() )
-				values.append( row[i:i+2].std() )
-			# print len(values)
-			sql = "INSERT INTO fpkms2 VALUES (%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"%tuple(values)
-			# print sql
-			cur.execute(sql)
-			conn.commit()
-		except Exception, e:
-			print e
-			conn.rollback()
+			genes = str(sheet['A%s'%i].value)
+			for gene in genes.split(','):
+				sigs.append( (gene, sheet_name) )
+			i += 1
+		except IndexError:
+			break
+	print i, sheet_name
+
+print 'number of gene-cell pairs:', len(sigs)
+
+for (gene, cell) in sigs:
+	try:
+		sql = "INSERT INTO signature2 VALUES ('%s', '%s')" % (gene, cell)
+		cur.execute(sql)
+		conn.commit()
+	except Exception, e:
+		print e
+		conn.rollback()
 
 conn.close()
