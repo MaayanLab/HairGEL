@@ -51,17 +51,45 @@ rect:hover {
 	fill:#99CCFF;
 }
 
-.X1 {fill: rgb(79, 98, 40);}
-.X2 {fill: rgb(51, 153, 51);}
-.X3 {fill: rgb(146, 208, 80);}
-.X4 {fill: rgb(96, 74, 123);}
-.X5 {fill: rgb(192, 0, 0);}
-.X6 {fill: rgb(255, 189, 34);}
-.X7 {fill: rgb(119, 147, 60);}
-.X8 {fill: rgb(0, 0, 0);}
-.X13 {fill: rgb(10, 56, 204);}
-.X14 {fill: rgb(95, 131, 247);}
-.X16 {fill: rgb(252, 234, 4);}
-.X17 {fill: rgb(255, 192, 0);}
-.X19 {fill: rgb(252, 213, 181);}
-.X20 {fill: rgb(228, 108, 10);}
+.X1 {
+	fill: #50632C;
+}
+.X2 {
+	fill: #339947;
+}
+.X3 {
+	fill: #93C854;
+}
+.X4 {
+	fill: #614B7C;
+}
+.X5 {
+	fill: #BE2026;
+}
+.X6 {
+	fill: #FEBC23;
+}
+.X7 {
+	fill: #77923C;
+}
+.X8 {
+	fill: #000000;
+}
+.X13 {
+	fill: #364FA2;
+}
+.X14 {
+	fill: #667DBD;
+}
+.X16 {
+	fill: #FBE900;
+}
+.X17 {
+	fill: #FDC010;
+}
+.X19 {
+	fill: #FCD5B5;
+}
+.X20 {
+	fill: #E36D25;
+}
