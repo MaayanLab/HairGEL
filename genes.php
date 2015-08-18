@@ -57,6 +57,8 @@ switch ($table) {
 
 $out_array = array();
 
+mysql_query("SET SQL_BIG_SELECTS=1"); // to avoid server MySQL error
+
 $result = mysql_query($query);
 $row = mysql_fetch_assoc($result);
 
