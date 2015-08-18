@@ -8,11 +8,18 @@ sys.path.append('/Users/zichen/Documents/bitbucket/maayanlab_utils')
 from fileIO import read_df
 
 # os.chdir('D:\Zichen_Projects\Rendl_RNAseq')
-os.chdir('/Users/zichen/Documents/Zichen_Projects/Rendl_RNAseq2')
-
+# os.chdir('/Users/zichen/Documents/Zichen_Projects/Rendl_RNAseq2')
 # mat, gene_tids, samples = read_df('repFpkmMatrix_allGenes.txt')
 # print mat.shape, len(gene_tids), len(samples)
 
+os.chdir('/Users/zichen/Documents/Zichen_Projects/Rendl_RNAseq3')
+mat, tids, samples = read_df('repFpkmMatrix_allGenes.txt')
+d_tid_genes = {}
+with open ('trackingIDs_geneSymbols.txt') as f:
+	next(f)
+	for line in f:
+		sl = line.strip().split('\t')
+		d_tid_genes[sl[0]] = sl[1].split(',')
 
 # d_sig = {}
 # with open ('signatures.txt') as f:
@@ -89,31 +96,51 @@ cur = conn.cursor()
 # 			conn.rollback()
 
 ## insert Amelie signatures
-W = px.load_workbook('SignatureGenes_AR.xlsx', use_iterators = True)
-sheet_names = W.get_sheet_names()
-sigs = []
-for sheet_name in sheet_names:
-	sheet = W.get_sheet_by_name(name = sheet_name)
-	i = 1
-	while True:
+# W = px.load_workbook('SignatureGenes_AR.xlsx', use_iterators = True)
+# sheet_names = W.get_sheet_names()
+# sigs = []
+# for sheet_name in sheet_names:
+# 	sheet = W.get_sheet_by_name(name = sheet_name)
+# 	i = 1
+# 	while True:
+# 		try:
+# 			genes = str(sheet['A%s'%i].value)
+# 			for gene in genes.split(','):
+# 				sigs.append( (gene, sheet_name) )
+# 			i += 1
+# 		except IndexError:
+# 			break
+# 	print i, sheet_name
+
+# print 'number of gene-cell pairs:', len(sigs)
+
+# for (gene, cell) in sigs:
+# 	try:
+# 		sql = "INSERT INTO signature2 VALUES ('%s', '%s')" % (gene, cell)
+# 		cur.execute(sql)
+# 		conn.commit()
+# 	except Exception, e:
+# 		print e
+# 		conn.rollback()
+
+## insert Rachel's DS, DP, DF data
+ii = 0
+for row, tid in zip(mat, tids):
+	genes = d_tid_genes[tid]
+	for gene in genes:
+		ii += 1
 		try:
-			genes = str(sheet['A%s'%i].value)
-			for gene in genes.split(','):
-				sigs.append( (gene, sheet_name) )
-			i += 1
-		except IndexError:
-			break
-	print i, sheet_name
-
-print 'number of gene-cell pairs:', len(sigs)
-
-for (gene, cell) in sigs:
-	try:
-		sql = "INSERT INTO signature2 VALUES ('%s', '%s')" % (gene, cell)
-		cur.execute(sql)
-		conn.commit()
-	except Exception, e:
-		print e
-		conn.rollback()
+			values = [ii, gene]
+			for i in np.arange(0,6,2):
+				values.append( row[i:i+2].mean() )
+				values.append( row[i:i+2].std() )
+			# print len(values)
+			sql = "INSERT INTO fpkms3 VALUES (%s,'%s',%s,%s,%s,%s,%s,%s)"%tuple(values)
+			# print sql
+			cur.execute(sql)
+			conn.commit()
+		except Exception, e:
+			print e
+			conn.rollback()
 
 conn.close()
