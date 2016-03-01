@@ -40,7 +40,7 @@
 				<div class="row">
 					<div class="col-lg-6 col-xs-12 text-center">
 						<div class="form-inline">
-							<h3>E14.5 embryonic mouse skin</h3>
+							<h3>P5 postnatal mouse skin</h3>
 							<div class="form-group">
 								<label for="gene" class="control-label">Gene Symbol:</label>
 								<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
@@ -49,7 +49,7 @@
 							<span id="gene-hint" class="help-block">Search for gene of interest by entering <a href="http://www.informatics.jax.org/marker">official symbol</a></span>
 							<strong>Examples:</strong>
 							<span>
-								<a href="#" class="example">Fgf20</a>, <a href="#" class="example">Ovol1</a>, <a href="#" class="example">Mitf</a>, <a href="#" class="example">Sox2</a>, <a href="#" class="example">Dpt</a>, <a href="#" class="example">Gfra1</a> 
+								<a href="#" class="example">Krt1</a>, <a href="#" class="example">Ovol1</a>, <a href="#" class="example">Mitf</a>, <a href="#" class="example">Sox2</a>, <a href="#" class="example">Dpt</a>, <a href="#" class="example">Gfra1</a> 
 							</span>
 							
 						</div>
@@ -60,7 +60,12 @@
 						</div>
 					</div>
 					<div class="col-lg-6 col-xs-12 text-center">
-						<img id="legend" width="440" src="img/Cartoon_02RS.svg">
+						<img id="legend" width="440" src="img/Schematic_website_hairgel_02.png">
+					</div>					
+				</div>	
+				<div class="row">
+					<div class="col-lg-12 col-xs-12 text-center">
+						
 						<div>
 							<h3><i>FPKMs:</i></h3>
 							<div id="fpkm-table" class="table-responsive"></div>
@@ -75,8 +80,8 @@
 				<table>
 					<tbody>
 						<tr>
-							<td><a href="downloads/Signature genes.xls"><span class="glyphicon glyphicon-download-alt"></span> download signature gene lists</a></td>
-							<td><a href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE70288" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Access the dataset from GEO</a></td>
+							<td><a href="" target=""><span class="glyphicon glyphicon-download-alt"></span> download signature gene lists</a></td>
+							<td><a href="" target="_blank"><span class="glyphicon glyphicon-new-window"></span> Access the dataset from GEO</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -84,7 +89,7 @@
 		</div>
 		<div class="row footer">
 			<div class="col-lg-10 col-lg-offset-1 col-xs-12">
-				<span><i>Please cite: </i><br>Sennett R, Wang Z, Rezza A, Grisanti L, Roitershtein N, Sicchio C, Mok KW, Heitman NJ, Clavel C, Ma'ayan A, Rendl M (2015)<strong> An Integrated Transcriptome Atlas of Embryonic Hair Follicle Progenitors, their Niche and the Developing Skin.</strong> <i>Developmental Cell</i> <a style="color:#fff;" href="http://dx.doi.org/10.1016/j.devcel.2015.06.023">doi:10.1016/j.devcel.2015.06.023</a> </span>
+				<span><i>Please cite: </i><br>Rezza A, Wang Z, Sennett R, Qiao W, Wang D, Heitman N, Clavel C, Yi R, Zandstra P, Ma'ayan A, Rendl M (2016)<strong> Signaling networks between stem cell precursors, transit amplifying progenitors, and their niche in developing hair follicles.</strong> <i>Cell Reports</i> (Accepted) </span>
 			</div>
 		</div>
 	</div> <!-- end of container -->
@@ -96,9 +101,11 @@
 	<script src="js/d3.v3.min.js"></script>
 	<script src="js/saveSvgAsPng.js"></script>
 	<script>
+	tableName = 'fpkms2';
+
 	// for barplot
 	var screenWidth = $(window).width();
-	var margin = {top: 40, right: 20, bottom: 50, left: 50};
+	var margin = {top: 40, right: 20, bottom: 70, left: 50};
 	if (screenWidth > 500) {
 		var width = 500 - margin.left - margin.right,
 		height = 300 - margin.top - margin.bottom;
@@ -130,7 +137,7 @@
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	$(document).ready(function(){ // preload a bargraph
-		$.getJSON('genes.php', {gene: 'Dkk4'}, function(json){
+		$.getJSON('genes.php', {gene: 'Mitf', table: tableName}, function(json){
 			barPlot(json);
 			fpkmTable(json);
 		})
@@ -138,7 +145,7 @@
 
 	$('#gene').bind("enterKey",function(e){
 		var geneInput = $(this).val();
-		$.getJSON('genes.php', {gene: geneInput}, function(json){
+		$.getJSON('genes.php', {gene: geneInput, table: tableName}, function(json){
 			barPlot(json);
 			fpkmTable(json);
 		})
@@ -146,7 +153,7 @@
 
 	$('#go-button').click(function(){
 		var geneInput = $('#gene').val();
-		$.getJSON('genes.php', {gene: geneInput}, function(json){
+		$.getJSON('genes.php', {gene: geneInput, table: tableName}, function(json){
 			barPlot(json);
 			fpkmTable(json);
 		})
@@ -160,21 +167,27 @@
 
 	$('.example').click(function(){ // to show example when clicked
 		var geneInput = $(this).text();
-		$.getJSON('genes.php', {gene: geneInput}, function(json){
+		$.getJSON('genes.php', {gene: geneInput, table: tableName}, function(json){
 			barPlot(json);
 			fpkmTable(json);
 		})
 	})
 
 	var sampleNames = {
-		C6 :'Pc' ,
-		C7 :'Epi' ,
-		C8 :'Mc' ,
-		C4 :'DC' ,
-		C1 :'Fb' ,
-		C5 :'Sch' ,
-		C3 :'DC/Sch' ,
-		C2 :'Neg' ,
+		X1: "Epi",
+		X2: "ORS",
+		X3: "Mx",
+		X4: "Mc",
+		X5: "DF",
+		X6: "DP",
+		X7: "TAC",
+		X8: "Neg",
+		X13: "HF-SC",
+		X14: "HF-ORS",
+		X16: "ZZ-DP",
+		X17: "G/AA-DP",
+		X19: "G-DP",
+		X20: "AA/ZZ-DP",
 	};
 
 	// table
@@ -238,7 +251,7 @@
 		// plot bars
 		var rects = svg.selectAll("rect").data(data);
 		rects.enter().append("rect")
-		.attr("class", function(d) {return d.name; })
+		.attr("class", function(d) { return d.name; })
 		.attr("x", function(d) { return x(d.sampleName); })
 		.attr("width", x.rangeBand())
 		.attr("y", function(d) { return y(d.avg); })
@@ -307,16 +320,6 @@ $.getJSON("geneNames.json",function(data){
 d3.select("#save-button").on("click", function(){
 	saveSvgAsPng(document.getElementById("fpkm-barplot"), "fpkm-barplot.png"); 
 });
-
-</script>
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-60506844-1', 'auto');
-ga('send', 'pageview');
 
 </script>
 </body>

@@ -18,9 +18,7 @@ rect:hover {
   shape-rendering: crispEdges;
 }
 
-.x .tick text {
-	font-size: 14px;
-}
+.x .tick text {font-size: 14px;}
 
 .y .tick text {
 	font-size: 12px;
@@ -49,4 +47,29 @@ rect:hover {
 }
 .C2 {
 	fill:#99CCFF;
+}
+
+.X1 {fill: #4F6228;}
+.X2 {fill: #339933;}
+.X3 {fill: #92D050;}
+.X4 {fill: #604A7B;}
+.X5 {fill: #C00000;}
+.X6 {fill: #FFBD22;}
+.X7 {fill: #77933C;}
+.X8 {fill: #000000;}
+.X13 {fill: #0A38CC;}
+.X14 {fill: #5F83F7;}
+.X16 {fill: #F37323;}
+.X17 {fill: #FFC000;}
+.X19 {fill: #BA5527;}
+.X20 {fill: #E46C0A;}
+
+.DS {
+	fill: #35AD79;
+}
+.DP {
+	fill: #8F35AD;
+}
+.DF {
+	fill: #3595AD;
 }

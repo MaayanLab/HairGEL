@@ -103,6 +103,10 @@ p {
 	padding-top: 10%;
 }
 
+table {
+    table-layout: fixed;
+}
+
 td {
  width: 12.5%;
 }
