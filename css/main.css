@@ -46,7 +46,13 @@ html {
 
 .translucent-padding {
     background-color: rgba(221,221,221,0.9);
+    padding-left: 0;
+    padding-right: 0;
 }
+.top-round-border {
+    border-radius: 4px 4px 0 0;
+}
+
 #top-banner {
 	padding-top: 10px;
 	padding-bottom: 10px;
