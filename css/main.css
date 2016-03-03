@@ -42,6 +42,10 @@ html {
         line-height: 12px!important;
         padding-top: 0%!important;
     }
+    .nav-tabs > li > a {
+        font-size: 90% !important;
+        font-weight: normal !important;
+    }
 }
 
 .translucent-padding {
@@ -93,6 +97,12 @@ html {
 }
 .black-words {
     color: #000;
+}
+.nav-tabs > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 120%;
+    font-weight: bold;
 }
 a.example {
     cursor: pointer;
