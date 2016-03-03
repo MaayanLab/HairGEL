@@ -94,7 +94,9 @@ html {
 .black-words {
     color: #000;
 }
-
+a.example {
+    cursor: pointer;
+}
 #legend {
     max-width: 100%;
     max-height: 100%;
