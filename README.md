@@ -12,6 +12,7 @@ RNA-Seq across different cell types and developmental stages of mice hair follic
 [An Integrated Transcriptome Atlas of Embryonic Hair Follicle Progenitors, Their Niche, and the Developing Skin.](http://www.sciencedirect.com/science/article/pii/S153458071500430X)
 Sennett R, Wang Z, Rezza A, Grisanti L, Roitershtein N, Sicchio C, Mok KW, Heitman NJ, Clavel C, Ma'ayan A, Rendl M. _Developmental Cell_ 2015 Sep 14;34(5):577-91.
 PMID: [26256211](http://www.ncbi.nlm.nih.gov/pubmed/26256211) | PMCID: PMC4573840
+
 [Signaling Networks among Stem Cell Precursors, Transit-Amplifying Progenitors, and their Niche in Developing Hair Follicles](http://www.cell.com/cell-reports/fulltext/S2211-1247(16)30213-3)
 Rezza A, Wang Z, Sennett R, Qiao W, Wang D, Heitman N, Mok KW, Clavel C, Yi R, Zandstra P, Ma'ayan A, Rendl M. _Cell Reports_ 2016
 
