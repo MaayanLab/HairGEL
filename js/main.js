@@ -4,7 +4,7 @@ function main(exampleGene, tableName, sampleNames, tabSelector){
 
 	// Set up barplot
 	var screenWidth = $(window).width();
-	var margin = {top: 40, right: 20, bottom: 50, left: 50};
+	var margin = {top: 40, right: 20, bottom: 60, left: 50};
 	if (screenWidth > 500) {
 		var width = 500 - margin.left - margin.right,
 		height = 300 - margin.top - margin.bottom;
