@@ -14,7 +14,8 @@ Sennett R, Wang Z, Rezza A, Grisanti L, Roitershtein N, Sicchio C, Mok KW, Heitm
 PMID: [26256211](http://www.ncbi.nlm.nih.gov/pubmed/26256211) | PMCID: PMC4573840
 
 [Signaling Networks among Stem Cell Precursors, Transit-Amplifying Progenitors, and their Niche in Developing Hair Follicles](http://www.cell.com/cell-reports/fulltext/S2211-1247(16)30213-3)
-Rezza A, Wang Z, Sennett R, Qiao W, Wang D, Heitman N, Mok KW, Clavel C, Yi R, Zandstra P, Ma'ayan A, Rendl M. _Cell Reports_ 2016
+Rezza A, Wang Z, Sennett R, Qiao W, Wang D, Heitman N, Mok KW, Clavel C, Yi R, Zandstra P, Ma'ayan A, Rendl M. _Cell Reports_ 2016 Mar 29;14(12):3001-18.
+PMID: [27009580](http://www.ncbi.nlm.nih.gov/pubmed/27009580) 
 
 ## In the News
 + [Secrets of the Hair Follicle: Now on Your iPhone](http://www.sciencedirect.com/science/article/pii/S1534580715005559)
