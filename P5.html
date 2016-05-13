@@ -38,7 +38,7 @@
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding">
 				<div class="row">
-					<div class="col-lg-6 col-xs-12 text-center">
+					<div class="col-lg-6 col-xs-12 text-center P5">
 						<div class="form-inline">
 							<h3>P5 postnatal mouse skin</h3>
 							<div class="form-group">
@@ -104,7 +104,8 @@
 <script src="js/main.js"></script>
 <script>
 var exampleGene = 'Mitf',
-	tableName = 'fpkms2';
+	tableName = 'fpkms2',
+	tabSelector = '.P5';
 var sampleNames = {
 	X1: "Epi",
 	X2: "ORS",
@@ -121,6 +122,7 @@ var sampleNames = {
 	X19: "G-DP",
 	X20: "AA/ZZ-DP",
 };
+main(exampleGene, tableName, sampleNames, tabSelector);
 </script>
 </body>
 </html>
