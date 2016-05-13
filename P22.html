@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Zichen Wang (zichen.wang@mssm.edu)">
+	<title>Hair-GEL, searchable Gene Expression Library for hair follicles</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/barplot.css">
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body id="page-top">
+	<div class="container">
+		<div class="row" id="top-banner">
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding" >
+				<div class="row" id="big-logo">
+					<div class="col-sm-6"><h1 class="large-font">Hair-GEL</h1></div>
+					<div class="col-sm-3" id="top-middle">
+						<p class="medium-font"> <span class="black-words">searchable</span><br>
+							<u>G</u>ene <u>E</u>xpression <u>L</u>ibrary<br>
+							<span class="black-words">for hair follicles</span>
+						</p>
+					</div>
+					<div class="col-sm-3 text-center" id="logos">
+						<a href="http://icahn.mssm.edu/"><img src="img/MSSMLogo.png"></a><br>
+						<a href="http://research.mssm.edu/rendl/">Rendl Lab</a>,
+						<a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12 translucent-padding top-round-border">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#P22-1" aria-controls="P22-1" role="tab" data-toggle="tab">P22 data grouped by zones</a></li>
+					<li role="presentation"><a href="#P22-2" aria-controls="P22-2" role="tab" data-toggle="tab">P22 data grouped by cell types</a></li>
+				</ul>
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane fade in active P22-1" id="P22-1">
+						<!-- P22-1 data -->
+						<div class="row">
+							<div class="col-lg-12 col-xs-12 text-center">
+								<div class="form-inline">
+									<h3>P22 data grouped by zones</h3>
+									<div class="form-group">
+										<label for="gene" class="control-label">Gene Symbol:</label>
+										<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
+									</div>
+									<button class="btn btn-info" id="go-button"><span class="glyphicon glyphicon-search"></span> Search</button>
+									<span id="gene-hint" class="help-block">Search for gene of interest by entering <a href="http://www.informatics.jax.org/marker">official symbol</a></span>
+									<strong>Examples:</strong>
+									<span>
+										<a class="example">Fgf20</a>, <a class="example">Ovol1</a>, <a class="example">Mitf</a>, <a class="example">Sox2</a>, <a class="example">Dpt</a>, <a class="example">Gfra1</a> 
+									</span>
+
+								</div>
+								<span class="right-align">* signature genes</span>
+								<div>
+									<div id="barplot-container"></div>
+									<button class="btn btn-info" id="save-button"><span class="glyphicon glyphicon-save-file"></span> Save image</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 col-xs-12 text-center">
+								<div>
+									<h3><i>FPKMs:</i></h3>
+									<div id="fpkm-table" class="table-responsive"></div>
+								</div>
+							</div>
+						</div>
+					</div> <!-- End of P22-1 tab-pane -->
+
+					<div role="tabpanel" class="tab-pane fade P22-2" id="P22-2">
+						<!-- P22-2 -->
+						<div class="row">
+							<div class="col-lg-12 col-xs-12 text-center">
+								<div class="form-inline">
+									<h3>P22 data grouped by cell types</h3>
+									<div class="form-group">
+										<label for="gene" class="control-label">Gene Symbol:</label>
+										<input type="text" id="gene" class="form-control ui-autocomplete-input" aria-describedby="gene-hint" />
+									</div>
+									<button class="btn btn-info" id="go-button"><span class="glyphicon glyphicon-search"></span> Search</button>
+									<span id="gene-hint" class="help-block">Search for gene of interest by entering <a href="http://www.informatics.jax.org/marker">official symbol</a></span>
+									<strong>Examples:</strong>
+									<span>
+										<a class="example">Krt1</a>, <a class="example">Shh</a>, <a class="example">Mitf</a>, <a class="example">Hhip</a>, <a class="example">Nfatc1</a>, <a class="example">Sox2</a> 
+									</span>
+									
+								</div>
+								<span class="right-align">* signature genes</span>
+								<div>
+									<div id="barplot-container"></div>
+									<button class="btn btn-info" id="save-button"><span class="glyphicon glyphicon-save-file"></span> Save image</button>
+								</div>
+							</div>				
+						</div>	
+						<div class="row">
+							<div class="col-lg-12 col-xs-12 text-center">
+								<div>
+									<h3><i>FPKMs:</i></h3>
+									<div id="fpkm-table" class="table-responsive"></div>
+								</div>
+							</div>
+						</div>
+
+					</div> <!-- End of P5 tab-pane -->
+				</div> <!-- End of Tab panes -->
+			</div> <!-- End of .translucent-padding .top-round-border -->
+		</div>
+
+		<div class="row footer">
+			<div class="col-lg-10 col-lg-offset-1 col-xs-12">
+			</div>
+		</div>
+	</div> <!-- end of container -->
+
+	<!-- JavaScripts -->
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/saveSvgAsPng.js"></script>
+
+	<script src="js/main.js"></script>
+	<script>
+	var activeTabId = "P22-1"; // default active tab id
+
+	// Provide default variables specific to default tab
+	var exampleGene = 'Mitf',
+		tableName = 'rpkms4_1',
+		tabSelector = '.P22-1';
+
+	var sampleNames = {
+		zone1_Neg: "Neg-1",
+		zone1_RFP: "RFP-1",
+		zone1_DP: "DP-1",
+		zone1_Foll: "Foll-1",
+		zone1_CD34: "CD34-1",
+		zone1_Pcad: "Pcad-1",
+		zone1_Epi: "Epi-1",
+		zone2_Neg: "Neg-2",
+		zone2_RFP: "RFP-2",
+		zone2_DP: "DP-2",
+		zone2_Foll: "Foll-2",
+		zone2_CD34: "CD34-2",
+		zone2_Pcad: "Pcad-2",
+		zone2_Epi: "Epi-2",
+		zone3_Neg: "Neg-3",
+		zone3_RFP: "RFP-3",
+		zone3_DP: "DP-3",
+		zone3_Foll: "Foll-3",
+		zone3_CD34: "CD34-3",
+		zone3_Pcad: "Pcad-3",
+		zone3_Epi: "Epi-3",
+		zone4_Neg: "Neg-4",
+		zone4_RFP: "RFP-4",
+		zone4_DP: "DP-4",
+		zone4_Foll: "Foll-4",
+		zone4_CD34: "CD34-4",
+		zone4_Pcad: "Pcad-4",
+		zone4_Epi: "Epi-4"
+	};
+	main(exampleGene, tableName, sampleNames, tabSelector);
+
+	// Listen to tab changing event and update view
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		var activeTabId = $(e.target).attr("aria-controls"); // newly activated tab id
+		if(activeTabId === 'P22-2'){
+			tableName = 'rpkms4_2';
+			tabSelector = '.P22-2';
+		}else {
+			exampleGene = 'Dkk4';
+			tableName = 'rpkms4_1';
+			tabSelector = '.P22-1';
+		}
+
+		main(exampleGene, tableName, sampleNames, tabSelector);
+	});
+
+</script>
+</body>
+</html>

@@ -47,6 +47,40 @@ switch ($table) {
 		$signature_table = 'signature2';
 		$query = "SELECT * FROM fpkms JOIN fpkms2 ON fpkms.gene=fpkms2.gene JOIN fpkms3 ON fpkms2.gene=fpkms3.gene WHERE fpkms.gene='$gene'";		
 		break;
+
+	case 'rpkms4_1': // P22 data grouped by zones
+		$table = 'rpkms4';
+		$zones = array('zone1', 'zone2', 'zone3', 'zone4');
+		$cells = array('Neg', 'RFP', 'DP', 'Foll', 'CD34', 'Pcad', 'Epi');
+		// construct samples array
+		$samples =  array();
+		foreach ($zones as $zone) {
+			foreach ($cells as $cell) {
+				array_push($samples, "$zone"."_"."$cell");
+			}
+		}
+
+		$signature_table = 'signature2';
+		$query = "SELECT * FROM $table WHERE gene='$gene'";
+		// echo json_encode($samples);
+		break;
+
+	case 'rpkms4_2': // P22 data grouped by cell types
+		$table = 'rpkms4';
+		$zones = array('zone1', 'zone2', 'zone3', 'zone4');
+		$cells = array('Neg', 'RFP', 'DP', 'Foll', 'CD34', 'Pcad', 'Epi');
+		// construct samples array
+		$samples =  array();
+		foreach ($cells as $cell) {
+			foreach ($zones as $zone) {
+				array_push($samples, "$zone"."_"."$cell");
+			}
+		}
+
+		$signature_table = 'signature2';
+		$query = "SELECT * FROM $table WHERE gene='$gene'";
+		break;
+
 	default:
 		$samples = array('C6', 'C7', 'C8', 'C4', 'C1', 'C5', 'C3', 'C2');
 		$signature_table = 'signature';
@@ -64,6 +98,7 @@ $row = mysql_fetch_assoc($result);
 
 $out_array['data'] = array();
 
+// re-order samples from the SQL query based on $samples
 foreach ($samples as $sample) {
 	$avg = $row["$sample".'_avg'];
 	$sd = $row["$sample".'_sd'];
