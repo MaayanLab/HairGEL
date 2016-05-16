@@ -10,7 +10,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	$passwd = file_get_contents('password.conf', FILE_USE_INCLUDE_PATH);
 	if (($_SERVER['PHP_AUTH_USER'] == 'rendllab') && ($_SERVER['PHP_AUTH_PW'] == $passwd)) {
 		$doc = new DOMDocument();
-		$doc->loadHTMLFile("index3.html");
+		$doc->loadHTMLFile("P5-and-E14.html");
 		echo $doc->saveHTML();
 
 	} else {
