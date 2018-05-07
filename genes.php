@@ -80,7 +80,12 @@ switch ($table) {
 		$signature_table = 'signature2';
 		$query = "SELECT * FROM $table WHERE gene='$gene'";
 		break;
-
+	case 'fpkms_p20_dsp':
+		$table = 'fpkms_p20_dsp';
+		$query = "SELECT * FROM $table WHERE gene='$gene'";
+		$samples = array('APM', 'DF', 'DP', 'DSP', 'Pericyte', 'VaSM');
+		$signature_table = 'signature';
+		break;
 	default:
 		$samples = array('C6', 'C7', 'C8', 'C4', 'C1', 'C5', 'C3', 'C2');
 		$signature_table = 'signature';

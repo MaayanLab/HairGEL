@@ -103,3 +103,16 @@ rect:hover {
 .zone4_CD34 {fill: blue;}
 .zone4_Pcad {fill: purple;}
 .zone4_Epi {fill: darkgreen;}
+
+.APM {
+	fill: #CC3333;
+}
+.DSP {
+	fill: #FF9933;
+}
+.Pericyte {
+	fill: #5F83F7;
+}
+.VaSM {
+	fill: #339933;
+}
